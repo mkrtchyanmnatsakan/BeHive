@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
 import com.bluip.test.behive.models.Assignee;
 import com.bluip.test.behive.models.DueDate;
 import com.bluip.test.behive.models.TaskModel;

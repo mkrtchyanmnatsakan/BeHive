@@ -355,7 +355,7 @@
 
 
             <RelativeLayout
-
+                android:layout_marginTop="22.5dp"
                 android:layout_marginBottom="22.5dp"
                 android:layout_width="match_parent"
                 android:layout_height="92dp">
@@ -363,17 +363,27 @@
 
 
                 <android.support.v7.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_toStartOf="@+id/add_photo_relative"
+                    android:id="@+id/photo_recycler"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
                     
                 </android.support.v7.widget.RecyclerView>
                 
                 
                 <RelativeLayout
+                    android:id="@+id/add_photo_relative"
                     android:layout_alignParentEnd="true"
                     android:layout_width="60dp"
                     android:layout_height="match_parent">
+
+
+                    <ImageView
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/ic_add_active"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"/>
 
 
 

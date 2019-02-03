@@ -36,6 +36,10 @@
         </activity>
         <activity android:name=".ui.activitys.BaseActivity">
         </activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="da551efb201b40fc5d979a8595b2a111a2688635" />
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

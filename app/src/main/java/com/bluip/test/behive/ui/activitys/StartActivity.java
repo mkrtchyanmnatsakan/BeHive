@@ -9,19 +9,18 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-
 import com.bluip.test.behive.R;
 import com.bluip.test.behive.helpers.ConstantValues;
 import com.bluip.test.behive.helpers.Utils;
 
 public class StartActivity extends BaseActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         changeStatusBarColor();
-
         setContentView(R.layout.activity_start);
 
         ImageView logoImage = findViewById(R.id.logo_image);
