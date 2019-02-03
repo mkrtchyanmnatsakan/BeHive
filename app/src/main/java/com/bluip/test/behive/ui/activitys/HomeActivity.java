@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.design.internal.BottomNavigationItemView;
@@ -107,7 +108,14 @@ public class HomeActivity extends BaseActivity implements BottomNavigationView.O
 
     public void navigationController(String clickedType){
 
-            controllerDrawerLayout();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                controllerDrawerLayout();
+            }
+        },300);
+
+
 
 
         switch (clickedType){

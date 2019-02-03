@@ -25,4 +25,7 @@ public interface ConstantValues {
     String MESSAGES_TYPE   = "MESSAGES_TYPE";
     String WORKSPACES_TYPE = "WORKSPACES_TYPE";
     String CONTACTS_TYPE   = "CONTACTS_TYPE";
+
+
+    int MY_PERMISSIONS_REQUEST_RECORD_AUDIO = 2888;
 }

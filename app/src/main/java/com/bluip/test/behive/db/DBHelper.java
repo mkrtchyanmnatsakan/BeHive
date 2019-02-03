@@ -18,21 +18,23 @@ import java.util.List;
 public class DBHelper extends SQLiteOpenHelper {
 
     // Database Information
-    static final String DB_NAME = "Task.DB";
+    private static final String DB_NAME = "Task.DB";
 
     // Table columns
     // database version
-    static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 1;
     // Table Name
-    final String TABLE_TASK = "TABLE_TASK";
+    private final String TABLE_TASK = "TABLE_TASK";
 
-    String _id = "id";
-    String _description = "description";
-    String _workspaces = "workspaces";
+    private String _id = "id";
+    private String _description = "description";
+    private String _workspaces = "workspaces";
     private String _assigneeList = "assigneeList";
     private String _dueDate = "dueDate";
     private String _priority = "priority";
     private String _isCompleted = "isCompleted";
+
+
     // Creating table query
     private final String CREATE_TABLE = "create table " + TABLE_TASK + "("
             + _id + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -76,8 +78,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 values.put(_id, task.getId());
 
             }
-            values.put(_workspaces, task.getWorkspaces()); // file name
-            values.put(_description, task.getDescription()); // file path
+            values.put(_workspaces, task.getWorkspaces());
+            values.put(_description, task.getDescription());
             values.put(_priority, task.getPriority());
             values.put(_isCompleted, task.isCompleted() ? 1 : 0);
             values.put(_assigneeList, new Gson().toJson(task.getAssigneeList()));
@@ -213,7 +215,9 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public void attachDBUpdateListener(DBUpdateListener dbUpdateListener) {
+
         this.dbUpdateListener = dbUpdateListener;
+
     }
 
     public void detachDBUpdateListener() {

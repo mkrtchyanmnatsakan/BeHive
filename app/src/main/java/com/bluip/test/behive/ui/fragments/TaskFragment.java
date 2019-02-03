@@ -1,21 +1,31 @@
 package com.bluip.test.behive.ui.fragments;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.speech.RecognitionListener;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,14 +43,23 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-public class TaskFragment extends Fragment implements TaskClickedListener, TextView.OnEditorActionListener, DBHelper.DBUpdateListener {
+public class TaskFragment extends Fragment implements TaskClickedListener, TextView.OnEditorActionListener,
+        DBHelper.DBUpdateListener ,View.OnTouchListener{
 
 
     RecyclerView taskRecycler;
-    EditText searchEditText;
+    EditText quickAddEditText;
     TaskAdapter taskAdapte;
+    ImageView microphoneImage;
+
+
+
     private List<TaskModel> mTaskModelList;
+    private Intent mSpeechRecognizerIntent;
+    private SpeechRecognizer mSpeechRecognizer;
+    private boolean ischeckedPermission;
 
     public static TaskFragment newInstance() {
 
@@ -69,7 +88,12 @@ public class TaskFragment extends Fragment implements TaskClickedListener, TextV
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((BaseActivity) getActivity()).getDBHelper().attachDBUpdateListener(this);
+        if(getActivity()!= null){
+
+            ((BaseActivity) getActivity()).getDBHelper().attachDBUpdateListener(this);
+
+        }
+
         initViews(view);
 
 
@@ -79,9 +103,78 @@ public class TaskFragment extends Fragment implements TaskClickedListener, TextV
     private void initViews(View view) {
 
 
-        searchEditText = view.findViewById(R.id.search_edit_text);
-        searchEditText.setOnEditorActionListener(this);
-        searchEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        quickAddEditText = view.findViewById(R.id.quick_add_edit_text);
+        quickAddEditText.setOnEditorActionListener(this);
+        quickAddEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        microphoneImage = view.findViewById(R.id.microphone_image);
+        microphoneImage.setOnTouchListener(this);
+
+
+
+
+         mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(getActivity());
+
+
+         mSpeechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,
+                Locale.getDefault());
+
+
+        mSpeechRecognizer.setRecognitionListener(new RecognitionListener() {
+            @Override
+            public void onReadyForSpeech(Bundle bundle) {
+
+            }
+
+            @Override
+            public void onBeginningOfSpeech() {
+
+            }
+
+            @Override
+            public void onRmsChanged(float v) {
+
+            }
+
+            @Override
+            public void onBufferReceived(byte[] bytes) {
+
+            }
+
+            @Override
+            public void onEndOfSpeech() {
+
+            }
+
+            @Override
+            public void onError(int i) {
+
+            }
+
+            @Override
+            public void onResults(Bundle bundle) {
+                //getting all the matches
+                ArrayList<String> matches = bundle
+                        .getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+
+                //displaying the first match
+                if (matches != null)
+                    quickAddEditText.setText(matches.get(0));
+            }
+
+            @Override
+            public void onPartialResults(Bundle bundle) {
+
+            }
+
+            @Override
+            public void onEvent(int i, Bundle bundle) {
+
+            }
+        });
 
 
         taskRecycler = view.findViewById(R.id.task_recycler);
@@ -114,6 +207,7 @@ public class TaskFragment extends Fragment implements TaskClickedListener, TextV
 
     @Override
     public void onDestroy() {
+        if (getActivity() != null)
         ((BaseActivity)getActivity()).getDBHelper().detachDBUpdateListener();
 
         super.onDestroy();
@@ -129,6 +223,41 @@ public class TaskFragment extends Fragment implements TaskClickedListener, TextV
 
 
         }
+
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+
+
+        switch (requestCode) {
+            case ConstantValues.MY_PERMISSIONS_REQUEST_RECORD_AUDIO: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    ischeckedPermission = true;
+
+
+                } else {
+
+                    ischeckedPermission = false;
+
+                }
+                return;
+            }
+
+
+        }
+
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+
+
+
 
     }
 
@@ -150,13 +279,14 @@ public class TaskFragment extends Fragment implements TaskClickedListener, TextV
                 assignees.add(new Assignee(R.drawable.user_five));
                 assignees.add(new Assignee(R.drawable.user_six));
 
-                TaskModel taskModel1 = new TaskModel(null, searchEditText.getText().toString().trim()
+                TaskModel taskModel1 = new TaskModel(null, quickAddEditText.getText().toString().trim()
                         , ConstantValues.MEDIUM, assignees, dueDate1, ConstantValues.MEDIUM, false);
                 ((BaseActivity) getActivity()).getDBHelper().saveTask(taskModel1);
 
                 taskAdapte.addNewTaskItem(taskModel1);
                 taskRecycler.scrollToPosition(0);
-                searchEditText.setText("");
+                quickAddEditText.setHint(getResources().getString(R.string.quick_add));
+                quickAddEditText.setText("");
             }
 
 
@@ -164,6 +294,42 @@ public class TaskFragment extends Fragment implements TaskClickedListener, TextV
 
 
         return false;
+    }
+
+
+    private void checkPermission(){
+
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.RECORD_AUDIO)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Permission is not granted
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    Manifest.permission.READ_CONTACTS)) {
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+            } else {
+                // No explanation needed; request the permission
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.RECORD_AUDIO},
+                        ConstantValues.MY_PERMISSIONS_REQUEST_RECORD_AUDIO);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        } else {
+
+            ischeckedPermission = true;
+           // Toast.makeText(getActivity(), "Permission has already been granted", Toast.LENGTH_SHORT).show();
+
+        }
+
+
+
     }
 
     @Override
@@ -176,5 +342,42 @@ public class TaskFragment extends Fragment implements TaskClickedListener, TextV
 
             }
         });
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+
+
+        checkPermission();
+
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_UP:
+                //when the user removed the finger
+
+                if(ischeckedPermission){
+                    mSpeechRecognizer.stopListening();
+                }
+
+
+                break;
+
+            case MotionEvent.ACTION_DOWN:
+
+
+                if(ischeckedPermission){
+
+                    mSpeechRecognizer.startListening(mSpeechRecognizerIntent);
+
+                    //finger is on the button
+                    quickAddEditText.setText("");
+                    quickAddEditText.setHint("Listening...");
+                }
+
+
+                break;
+        }
+
+
+        return false;
     }
 }
