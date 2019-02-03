@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:id="@+id/root"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:background="@color/colorHomeBg"
+                android:layout_height="match_parent">
+
+
+
+
+    <RelativeLayout
+        android:id="@+id/toolbar_relative"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="58dp">
+
+
+        <RelativeLayout
+            android:id="@+id/menu_icon_relative"
+            android:layout_width="50dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/menu_icon"
+                android:layout_marginStart="16dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_menu_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        </RelativeLayout>
+
+
+
+
+        <TextView
+            android:id="@+id/all_text"
+            android:layout_marginStart="7.5dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/menu_icon_relative"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-medium"
+            android:textStyle="normal"
+            android:textColor="@color/colorCharcoalGrey"
+            android:text="@string/all"
+            />
+
+
+            <ImageView
+                android:layout_marginStart="6dp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/all_text"
+                android:src="@drawable/ic_arrow_gray_open"
+                android:layout_width="24dp"
+                android:layout_height="24dp"/>
+
+
+
+
+        <ImageView
+            android:id="@+id/add_active_image"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="16dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_add_active"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <ImageView
+            android:layout_marginEnd="21dp"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/add_active_image"
+            android:src="@drawable/ic_search_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+
+    </RelativeLayout>
+
+
+
+
+
+
+
+    <FrameLayout
+        android:layout_below="@+id/toolbar_relative"
+        android:layout_above="@+id/bottom_navigation_relative"
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    </FrameLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/bottom_navigation_relative"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            app:menu="@menu/bottom_navigation"
+            app:labelVisibilityMode="labeled"
+            app:itemIconSize="20dp"
+            android:background="@color/colorPrimary"
+            app:itemIconTint="@color/tab_item_bg"
+            app:itemTextColor="@color/tab_item_bg"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+
+    </RelativeLayout>
+
+
+
+    <FrameLayout
+        android:id="@+id/edit_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    </FrameLayout>
+
+
+
+</RelativeLayout>

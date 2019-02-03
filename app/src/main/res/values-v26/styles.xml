@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Custom.TextInputLayout" parent="TextAppearance.AppCompat">
+        <item name="android:textColorHint">#000000</item>
+        <item name="android:textSize">12.5sp</item>
+        <item name="android:colorError">#f05659</item>
+        <item name="colorAccent">@color/colorSilver</item>
+        <item name="colorControlNormal">@color/colorSilver</item>
+        <item name="colorControlActivated">@color/colorSilver</item>
+    </style>
+</resources>

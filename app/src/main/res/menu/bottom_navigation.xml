@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/activity_item"
+        android:icon="@drawable/ic_activity_home"
+        android:title="@string/activity"/>
+
+    <item
+        android:id="@+id/tasks_item"
+        android:icon="@drawable/task_icon"
+        android:title="@string/tasks"/>
+
+    <item
+
+        android:id="@+id/messages_item"
+        android:icon="@drawable/messages_icon"
+        android:title="@string/messages"/>
+
+    <item
+        android:id="@+id/workspaces_item"
+        android:icon="@drawable/ic_workspaces_home"
+        android:title="@string/workspaces"/>
+
+    <item
+        android:id="@+id/contacts_item"
+        android:icon="@drawable/contacts_icon"
+        android:title="@string/contacts"/>
+
+</menu>

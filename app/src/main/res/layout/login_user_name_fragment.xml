@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:background="@color/colorPrimary"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+
+            android:layout_marginTop="19.8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <RelativeLayout
+                android:id="@+id/back_user_name_relative"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content">
+
+
+                <ImageView
+                    android:layout_marginStart="16dp"
+                    android:src="@drawable/back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+
+
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+
+        <ImageView
+            android:layout_marginTop="6dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_action_user_name"
+            android:layout_width="82dp"
+            android:layout_height="89.7dp"/>
+
+
+        <TextView
+            android:layout_marginTop="18dp"
+            android:fontFamily="sans-serif"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="19sp"
+            android:textColor="@color/colorCharcoalGrey"
+            android:gravity="center_horizontal"
+            android:text="@string/enter_your_username"
+            />
+
+
+        <android.support.design.widget.TextInputLayout
+            android:theme="@style/Custom.TextInputLayout"
+            app:errorTextAppearance="@style/error_appearance"
+            android:layout_marginStart="17.5dp"
+            android:layout_marginEnd="17.5dp"
+            android:layout_marginTop="47dp"
+            android:id="@+id/user_name_text_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+
+                android:textColorHint="@color/colorSteel"
+                android:maxLines="1"
+                android:id="@+id/user_name_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/username"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+
+    </LinearLayout>
+
+
+
+
+
+
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        android:id="@+id/go_to_relative"
+        android:background="@drawable/go_to_bg"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+
+        <ImageView
+            android:scaleType="centerCrop"
+            android:src="@drawable/path"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+
+        <ImageView
+            android:rotation="180"
+            android:src="@drawable/ic_go_to_user_name"
+            android:layout_centerInParent="true"
+            android:layout_width="31dp"
+            android:layout_height="26dp"/>
+
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

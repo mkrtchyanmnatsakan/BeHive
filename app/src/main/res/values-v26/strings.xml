@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BeHive</string>
+    <string name="settings_content_description">settings_icon</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="dont_have_an_account">Don’t have an account?</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="version">Version</string>
+    <string name="enter_your_username">ENTER YOUR USERNAME</string>
+    <string name="username">Username</string>
+    <string name="incorrect_username">Incorrect usernamee</string>
+    <string name="incorrect_password">Incorrect password</string>
+    <string name="enter_your_password">ENTER YOUR PASSWORD</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="remember_password">Remember password</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="all">All</string>
+    <string name="quick_add">Quick add …</string>
+    <string name="there_are_no_tasks_to_show">There are no tasks to show</string>
+    <string name="activity">Activity</string>
+    <string name="tasks">Tasks</string>
+    <string name="messages">Messages</string>
+    <string name="workspaces">Workspaces</string>
+    <string name="contacts">Contacts</string>
+    <string name="low">LOW</string>
+    <string name="time">15:30</string>
+    <string name="pm">PM</string>
+    <string name="may">May 1</string>
+    <string name="text_one">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus auctor bibendum …</string>
+    <string name="no_assignee">No assignee</string>
+    <string name="text_two">Phasellus et felis consequat tellus cursus dictum at commodo justo. Sed et...</string>
+    <string name="count">+10</string>
+    <string name="medium">MEDIUM</string>
+    <string name="high">High</string>
+    <string name="no_date">No date</string>
+    <string name="text_three">Vestibulum congue libero at interdum faucibus.</string>
+    <string name="count_message">10</string>
+    <string name="completed">Completed</string>
+    <string name="text_four">Suspendisse luctus tempus mi, sagittis eleifend est vestibulum eget.</string>
+    <string name="description">Description</string>
+    <string name="text_desc">Contrary to popular belief, Lorem is not simply random text.</string>
+    <string name="workspace_edit">Workspace3, Workspace 5</string>
+    <string name="assignee">Assignee</string>
+    <string name="abbie_farmer">Abbie Farmer</string>
+    <string name="due_date">Due date</string>
+    <string name="priority">Priority</string>
+    <string name="time_edit_task">Aug 15 14:56 PM</string>
+    <string name="save_changes">Save Changes</string>
+</resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content">
+
+
+    <TextView
+        android:layout_marginEnd="7.5dp"
+        android:layout_marginTop="3dp"
+        android:id="@+id/count_message_text"
+        android:paddingStart="4.5dp"
+        android:paddingEnd="4.5dp"
+        android:paddingTop="1.5dp"
+        android:paddingBottom="1.5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:background="@drawable/notification_menassege_bg"
+        android:fontFamily="sans-serif"
+        android:textStyle="normal"
+        android:textColor="#ffffff"
+        android:layout_alignParentEnd="true"
+        android:text="@string/count_message"
+        />
+
+</RelativeLayout>

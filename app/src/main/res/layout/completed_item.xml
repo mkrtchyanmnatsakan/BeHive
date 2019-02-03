@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:background="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="154dp">
+
+
+
+    <RelativeLayout
+        android:id="@+id/title_completed_relative"
+        android:background="@color/colorSilver"
+        android:layout_width="match_parent"
+        android:layout_height="36dp">
+
+
+        <TextView
+            android:layout_marginStart="13dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="@color/colorCompleted"
+            android:text="@string/completed"
+            />
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_below="@+id/title_completed_relative"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:id="@+id/priority_date_relative"
+
+            android:layout_width="81dp"
+            android:layout_height="match_parent">
+
+
+
+            <TextView
+                android:id="@+id/priority_text"
+                android:layout_marginTop="11dp"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:fontFamily="sans-serif"
+                android:textStyle="bold"
+                android:textColor="@color/colorCharcoalGrey"
+                android:gravity="center_horizontal"
+                android:text="@string/high"/>
+
+
+            <TextView
+                android:id="@+id/time_text"
+                android:layout_marginTop="13.3dp"
+                android:layout_marginStart="8dp"
+                android:layout_below="@+id/priority_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="19sp"
+                android:fontFamily="sans-serif-medium"
+                android:textStyle="normal"
+                android:textColor="@color/colorSteel"
+                android:text="@string/time"
+                />
+
+
+            <TextView
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="48.3dp"
+                android:layout_toEndOf="@+id/time_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:fontFamily="sans-serif"
+                android:textStyle="normal"
+                android:textColor="@color/colorSteel"
+                android:text="@string/pm"
+                />
+
+
+            <TextView
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/time_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:fontFamily="sans-serif"
+                android:textStyle="normal"
+                android:textColor="@color/colorSteel"
+                android:gravity="center_horizontal"
+                android:text="@string/may"
+                />
+
+
+            <ImageView
+                android:layout_marginBottom="10dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/ic_task_completed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+
+
+
+
+        </RelativeLayout>
+
+
+        <View
+            android:id="@+id/right_view"
+            android:background="@color/colorSilver"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="12dp"
+
+            android:layout_toEndOf="@+id/priority_date_relative"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"/>
+
+
+        <RelativeLayout
+
+            android:layout_toEndOf="@id/right_view"
+            android:layout_above="@+id/bottom_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <RelativeLayout
+                android:layout_above="@+id/assignee_relative"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_toStartOf="@+id/more_relative"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="9dp"
+                    android:maxLines="3"
+                    android:ellipsize="end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:fontFamily="sans-serif"
+                    android:textStyle="normal"
+                    android:textColor="@color/colorSteel"
+                    android:text="@string/text_four"
+                    />
+
+
+                <RelativeLayout
+                    android:layout_alignParentEnd="true"
+                    android:id="@+id/more_relative"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent">
+
+
+                    <ImageView
+                        android:layout_alignParentBottom="true"
+                        android:src="@drawable/ic_task_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+
+                </RelativeLayout>
+
+
+
+
+
+
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/assignee_relative"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="49.3dp">
+
+
+                <ImageView
+
+                    android:id="@+id/attach_image"
+                    android:layout_centerVertical="true"
+                    android:rotation="45"
+                    android:layout_marginEnd="16dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+                <ImageView
+                    android:visibility="gone"
+                    android:layout_marginEnd="6dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/attach_image"
+                    android:src="@drawable/ic_task_location"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"/>
+
+
+                <TextView
+                    android:visibility="gone"
+                    android:layout_marginStart="15dp"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif"
+                    android:textStyle="normal"
+                    android:textColor="@color/colorCoolGrey"
+                    android:lineSpacingExtra="5sp"
+                    android:text="@string/no_assignee"
+                    />
+
+
+                <LinearLayout
+                    android:layout_marginStart="16dp"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_gravity="center"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/user_one"
+                        app:civ_border_width="1dp"
+                        app:civ_border_color="@color/colorPrimaryDark"/>
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_gravity="center"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="28dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/user_two"
+                        app:civ_border_width="1dp"
+                        app:civ_border_color="@color/colorPrimaryDark"/>
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:visibility="gone"
+                        android:layout_gravity="center"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="28dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/user_one"
+                        app:civ_border_width="1dp"
+                        app:civ_border_color="@color/colorPrimaryDark"/>
+
+
+                    <TextView
+                        android:visibility="gone"
+                        android:layout_marginStart="7.5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textStyle="normal"
+                        android:textColor="@color/colorSteel"
+                        android:gravity="center_horizontal"
+                        android:text="@string/count"
+                        />
+
+
+
+                </LinearLayout>
+
+
+
+
+
+            </RelativeLayout>
+
+
+
+
+
+
+        </RelativeLayout>
+
+
+        <View
+            android:id="@+id/bottom_view"
+            android:layout_marginEnd="7dp"
+            android:layout_marginStart="7dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorSilver"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+
+    </RelativeLayout>
+
+
+
+
+
+</RelativeLayout>
