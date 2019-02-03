@@ -49,5 +49,9 @@
     <string name="priority">Priority</string>
     <string name="time_edit_task">Aug 15 14:56 PM</string>
     <string name="save_changes">Save Changes</string>
+    <string name="type_your_task_description">Type your task description*</string>
+    <string name="edit_task">Edit Task</string>
+    <string name="not_date">--</string>
+    <string name="sign_out">Sign Out</string>
 
 </resources>

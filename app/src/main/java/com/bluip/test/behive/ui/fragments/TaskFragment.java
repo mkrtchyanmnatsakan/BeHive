@@ -171,6 +171,7 @@ public class TaskFragment extends Fragment implements TaskClickedListener, TextV
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
+                taskAdapte.notifyDataSetChanged();
                 Toast.makeText(getActivity(), new Gson().toJson(updatedTask), Toast.LENGTH_SHORT).show();
 
             }

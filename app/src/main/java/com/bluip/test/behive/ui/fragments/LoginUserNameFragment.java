@@ -22,7 +22,8 @@ import com.bluip.test.behive.helpers.ConstantValues;
 import com.bluip.test.behive.helpers.Utils;
 import com.bluip.test.behive.helpers.listeners.OnKeyboardVisibilityListener;
 
-public class LoginUserNameFragment extends Fragment implements OnKeyboardVisibilityListener , View.OnClickListener,TextWatcher {
+public class LoginUserNameFragment extends Fragment implements OnKeyboardVisibilityListener ,
+        View.OnClickListener,TextWatcher {
 
     RelativeLayout  goToRelative,
                     backUserNameRelative;

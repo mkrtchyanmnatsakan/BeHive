@@ -30,10 +30,7 @@ public class Utils {
     }
 
 
-
     public static void settingStringValuesInPreference(@Nullable Context context,String key,String value){
-
-
 
         if(context == null){
 
@@ -45,16 +42,10 @@ public class Utils {
         prefs.edit().putString(key,value)
                 .apply();
 
-
     }
 
 
-
-
-
     public static String getStringInPreference(@Nullable Context context,String key){
-
-
 
         if(context == null){
 
@@ -63,11 +54,9 @@ public class Utils {
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
-
         return prefs.getString(key,"");
 
     }
-
 
 
     public static void settingBooleanValuesInPreference(@Nullable Context context,String key,boolean value){
@@ -82,13 +71,9 @@ public class Utils {
         prefs.edit().putBoolean(key,value)
                 .apply();
 
-
     }
 
-
     public static boolean getBooleanInPreference(@Nullable Context context,String key){
-
-
 
         if(context == null){
 
@@ -97,9 +82,7 @@ public class Utils {
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
-
         return prefs.getBoolean(key,false);
-
     }
 
 
@@ -126,8 +109,6 @@ public class Utils {
 
             return;
         }
-
-
 
         editText.requestFocus();
         InputMethodManager imgr = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);

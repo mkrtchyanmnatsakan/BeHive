@@ -7,8 +7,6 @@ import com.bluip.test.behive.ui.fragments.LoginUserNameFragment;
 import com.bluip.test.behive.ui.fragments.NavigationFragment;
 
 public interface ConstantValues {
-
-
     String TAG_LOGIN_USER_NAME_FRAGMENT = LoginUserNameFragment.class.getSimpleName();
     String TAG_LOGIN_PASSWORD_FRAGMENT = LoginPasswordFragment.class.getSimpleName();
     String TAG_EDIT_TASK_FRAGMENT = EditTaskFragment.class.getSimpleName();
@@ -22,6 +20,9 @@ public interface ConstantValues {
     String MEDIUM = "MEDIUM";
     String HIGH = "HIGH";
 
-
-
+    String ACTIVITY_TYPE   = "ACTIVITY_TYPE";
+    String TASKS_TYPE      = "TASKS_TYPE";
+    String MESSAGES_TYPE   = "MESSAGES_TYPE";
+    String WORKSPACES_TYPE = "WORKSPACES_TYPE";
+    String CONTACTS_TYPE   = "CONTACTS_TYPE";
 }

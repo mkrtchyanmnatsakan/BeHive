@@ -204,6 +204,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(_priority, task.getPriority());
         values.put(_isCompleted, task.isCompleted() ? 1 : 0);
         values.put(_assigneeList, new Gson().toJson(task.getAssigneeList()));
+        values.put(_dueDate, new Gson().toJson(task.getDueDate()));
         int result = sqldb.update(TABLE_TASK, values, "id = " + task.getId(), null);
         sqldb.close();
         if (result == 1 && dbUpdateListener != null) {

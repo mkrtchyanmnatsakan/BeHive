@@ -22,9 +22,9 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.bluip.test.behive.R;
 import com.bluip.test.behive.helpers.ConstantValues;
+import com.bluip.test.behive.helpers.Utils;
 import com.bluip.test.behive.models.Assignee;
 import com.bluip.test.behive.models.DueDate;
 import com.bluip.test.behive.models.TaskModel;
@@ -35,7 +35,6 @@ import com.bluip.test.behive.ui.fragments.MessagesFragment;
 import com.bluip.test.behive.ui.fragments.NavigationFragment;
 import com.bluip.test.behive.ui.fragments.TaskFragment;
 import com.bluip.test.behive.ui.fragments.WorkspacesFragment;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -100,6 +99,61 @@ public class HomeActivity extends BaseActivity implements BottomNavigationView.O
         setBadgeMessages();
 
         initDrawer();
+
+
+    }
+
+
+
+    public void navigationController(String clickedType){
+
+            controllerDrawerLayout();
+
+
+        switch (clickedType){
+
+            case ConstantValues.ACTIVITY_TYPE:
+
+                bottomNavigation.setSelectedItemId(R.id.activity_item);
+
+                break;
+
+            case ConstantValues.TASKS_TYPE:
+
+                bottomNavigation.setSelectedItemId(R.id.tasks_item);
+
+                break;
+
+            case ConstantValues.MESSAGES_TYPE:
+
+                bottomNavigation.setSelectedItemId(R.id.messages_item);
+
+                break;
+
+            case ConstantValues.WORKSPACES_TYPE:
+
+                bottomNavigation.setSelectedItemId(R.id.workspaces_item);
+
+                break;
+
+            case ConstantValues.CONTACTS_TYPE:
+
+                bottomNavigation.setSelectedItemId(R.id.contacts_item);
+
+                break;
+
+        }
+
+    }
+
+
+
+
+    public void logOut(){
+
+        Utils.settingBooleanValuesInPreference(this,ConstantValues.IS_LOGIN_USER_PREFERENCE_KEY,false);
+        finish();
+
 
 
     }
@@ -318,21 +372,28 @@ public class HomeActivity extends BaseActivity implements BottomNavigationView.O
         return true;
     }
 
+
+    private void controllerDrawerLayout(){
+
+        if (drawerLayout.isDrawerOpen(navigationContent)) {
+
+            drawerLayout.closeDrawer(navigationContent);
+
+        } else {
+
+            drawerLayout.openDrawer(navigationContent);
+
+        }
+
+    }
+
     @Override
     public void onClick(View v) {
 
         switch (v.getId()) {
             case R.id.menu_icon_relative:
 
-                if (drawerLayout.isDrawerOpen(navigationContent)) {
-
-                    drawerLayout.closeDrawer(navigationContent);
-
-                } else {
-
-                    drawerLayout.openDrawer(navigationContent);
-
-                }
+              controllerDrawerLayout();
 
                 break;
         }

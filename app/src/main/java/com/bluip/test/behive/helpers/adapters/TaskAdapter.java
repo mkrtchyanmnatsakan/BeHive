@@ -144,10 +144,7 @@ public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 bindCompleted(completedVideoViewHolder, i);
 
                 break;
-
-
         }
-
 
     }
 
@@ -161,10 +158,8 @@ public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private void bindMedium(MediumViewHolder mediumViewHolder, int position) {
 
-
         mediumViewHolder.descriptionText.setText(taskModels.get(position).getDescription());
-
-
+        mediumViewHolder.timeText.setText(taskModels.get(position).getDueDate().getTime());
     }
 
     private void bindLow(LowViewHolder lowViewHolder, int position) {
@@ -198,13 +193,12 @@ public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     taskClickedListener.taskClicked(taskModels.get(getAdapterPosition()));
                 }
             });
-
-
         }
     }
 
     private class MediumViewHolder extends RecyclerView.ViewHolder {
         private TextView descriptionText;
+        private TextView timeText;
 
         private MediumViewHolder(View itemView) {
             super(itemView);
@@ -217,6 +211,7 @@ public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             });
 
             descriptionText = (TextView) itemView.findViewById(R.id.description_text);
+            timeText        = itemView.findViewById(R.id.time_text);
 
         }
     }
@@ -234,8 +229,6 @@ public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     taskClickedListener.taskClicked(taskModels.get(getAdapterPosition()));
                 }
             });
-
-
         }
     }
 
@@ -252,7 +245,6 @@ public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     taskClickedListener.taskClicked(taskModels.get(getAdapterPosition()));
                 }
             });
-
 
         }
     }

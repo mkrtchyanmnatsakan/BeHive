@@ -123,6 +123,9 @@ public class LoginPasswordFragment extends Fragment implements View.OnTouchListe
 
 
 
+
+
+
     private void setKeyboardVisibilityListener(final OnKeyboardVisibilityListener
                                                        onKeyboardVisibilityListener, final View view) {
 

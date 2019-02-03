@@ -41,7 +41,7 @@
             android:fontFamily="sans-serif-medium"
             android:textStyle="normal"
             android:textColor="@color/colorSteel"
-            android:text="--"
+            android:text="@string/not_date"
             />
 
 
