@@ -24,17 +24,18 @@ public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_COMPLETED = 3;
 
 
-    private Activity homeActivity;
+
     private LayoutInflater inflater;
     private List<TaskModel> taskModels;
     private TaskClickedListener taskClickedListener;
 
 
     public TaskAdapter(Activity homeActivity, List<TaskModel> taskModels, TaskClickedListener taskClickedListener) {
-        this.homeActivity = homeActivity;
+
         this.taskClickedListener = taskClickedListener;
         this.inflater = LayoutInflater.from(homeActivity);
         this.taskModels = taskModels;
+
     }
 
 
@@ -150,9 +151,20 @@ public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private void bindCompleted(CompletedVideoViewHolder completedVideoViewHolder, int position) {
 
+        completedVideoViewHolder.completedTimeText.setText(taskModels.get(position).getDueDate().getTime());
+        completedVideoViewHolder.completedPmText.setText(taskModels.get(position).getDueDate().getPm());
+        completedVideoViewHolder.completedDayText.setText(taskModels.get(position).getDueDate().getDay());
+        completedVideoViewHolder.completedDescriptionText.setText(taskModels.get(position).getDescription());
+
     }
 
     private void bindHigh(HighViewHolder highViewHolder, int position) {
+
+
+        highViewHolder.highTimeText.setText(taskModels.get(position).getDueDate().getTime());
+        highViewHolder.highPmText.setText(taskModels.get(position).getDueDate().getPm());
+        highViewHolder.highDayText.setText(taskModels.get(position).getDueDate().getDay());
+        highViewHolder.highDescriptionText.setText(taskModels.get(position).getDescription());
 
     }
 
@@ -160,9 +172,32 @@ public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         mediumViewHolder.descriptionText.setText(taskModels.get(position).getDescription());
         mediumViewHolder.timeText.setText(taskModels.get(position).getDueDate().getTime());
+        mediumViewHolder.pmOrAmText.setText(taskModels.get(position).getDueDate().getPm());
+        mediumViewHolder.dayText.setText(taskModels.get(position).getDueDate().getDay());
+
+        if(taskModels.get(position).getAssigneeList().size() > 3){
+
+            mediumViewHolder.moreAssigneeText.setVisibility(View.VISIBLE);
+
+            int diffAssigneeList = taskModels.get(position).getAssigneeList().size() - 3;
+
+            String diffAssigneeListString = "+" + diffAssigneeList;
+
+            mediumViewHolder.moreAssigneeText.setText(diffAssigneeListString);
+
+        }else {
+
+            mediumViewHolder.moreAssigneeText.setVisibility(View.GONE);
+        }
+
     }
 
     private void bindLow(LowViewHolder lowViewHolder, int position) {
+
+        lowViewHolder.lowTimeText.setText(taskModels.get(position).getDueDate().getTime());
+        lowViewHolder.lowPmText.setText(taskModels.get(position).getDueDate().getPm());
+        lowViewHolder.lowDayText.setText(taskModels.get(position).getDueDate().getDay());
+        lowViewHolder.lowDescriptionText.setText(taskModels.get(position).getDescription());
 
     }
 
@@ -184,6 +219,11 @@ public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private class LowViewHolder extends RecyclerView.ViewHolder {
 
+        private TextView lowTimeText;
+        private TextView lowPmText;
+        private TextView lowDayText;
+        private TextView lowDescriptionText;
+
         private LowViewHolder(View itemView) {
             super(itemView);
 
@@ -193,12 +233,23 @@ public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     taskClickedListener.taskClicked(taskModels.get(getAdapterPosition()));
                 }
             });
+
+            lowTimeText        = itemView.findViewById(R.id.low_time_text);
+            lowPmText          = itemView.findViewById(R.id.low_pm_text);
+            lowDayText         = itemView.findViewById(R.id.low_day_text);
+            lowDescriptionText = itemView.findViewById(R.id.low_description_text);
         }
     }
 
     private class MediumViewHolder extends RecyclerView.ViewHolder {
+
+
         private TextView descriptionText;
         private TextView timeText;
+        private TextView pmOrAmText;
+        private TextView dayText;
+        private TextView moreAssigneeText;
+
 
         private MediumViewHolder(View itemView) {
             super(itemView);
@@ -210,8 +261,11 @@ public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             });
 
-            descriptionText = (TextView) itemView.findViewById(R.id.description_text);
-            timeText        = itemView.findViewById(R.id.time_text);
+            descriptionText  = itemView.findViewById(R.id.description_text);
+            timeText         = itemView.findViewById(R.id.time_text);
+            pmOrAmText       = itemView.findViewById(R.id.pm_or_am_text);
+            dayText          = itemView.findViewById(R.id.day_text);
+            moreAssigneeText = itemView.findViewById(R.id.more_assignee_text);
 
         }
     }
@@ -220,8 +274,19 @@ public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private class HighViewHolder extends RecyclerView.ViewHolder {
 
 
+        private TextView highTimeText;
+        private TextView highPmText;
+        private TextView highDayText;
+        private TextView highDescriptionText;
+
+
         private HighViewHolder(View itemView) {
             super(itemView);
+
+            highDescriptionText = itemView.findViewById(R.id.high_description_text);
+            highDayText         = itemView.findViewById(R.id.high_day_text);
+            highTimeText        = itemView.findViewById(R.id.high_time_text);
+            highPmText          = itemView.findViewById(R.id.high_pm_text);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -236,8 +301,19 @@ public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private class CompletedVideoViewHolder extends RecyclerView.ViewHolder {
 
 
+        private TextView completedTimeText;
+        private TextView completedPmText;
+        private TextView completedDayText;
+        private TextView completedDescriptionText;
+
+
         private CompletedVideoViewHolder(View itemView) {
             super(itemView);
+
+            completedDescriptionText = itemView.findViewById(R.id.completed_description_text);
+            completedDayText         = itemView.findViewById(R.id.completed_day_text);
+            completedTimeText        = itemView.findViewById(R.id.completed_time_text);
+            completedPmText          = itemView.findViewById(R.id.completed_pm_text);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

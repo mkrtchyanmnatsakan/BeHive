@@ -9,7 +9,9 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Utils {
 
@@ -103,16 +105,20 @@ public class Utils {
     }
 
 
-    public static void hideKeyboardEditText(@Nullable Activity activity, EditText editText){
+
+
+
+    public static String dateFormat(@Nullable Activity activity,String pattern , Date date){
 
         if(activity == null){
 
-            return;
+            return "";
         }
 
-        editText.requestFocus();
-        InputMethodManager imgr = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imgr.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern,
+                    activity.getResources().getConfiguration().locale);
+
+        return  sdf.format(date);
 
     }
 

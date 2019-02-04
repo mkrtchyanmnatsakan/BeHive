@@ -5,7 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
+
 import com.bluip.test.behive.models.Assignee;
 import com.bluip.test.behive.models.DueDate;
 import com.bluip.test.behive.models.TaskModel;
@@ -67,7 +67,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     public synchronized void saveTasks(List<TaskModel> taskModels) {
-        Log.e("Db_LOGUS", "saveTasks = " + taskModels.size());
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.beginTransaction();
@@ -115,7 +114,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
         if (task.getId() == null || !existData(task.getId())) {
-            Log.e("Db_LOGUS", "insert = " + task.getDescription());
+
 
             db.insertOrThrow(TABLE_TASK, null, values);
         }
@@ -143,7 +142,6 @@ public class DBHelper extends SQLiteOpenHelper {
         } finally {
             cursor.close();
         }
-        Log.e("Db_LOGUS", "existData = " + id + " DataExsist " + dataExit);
 
         return dataExit;
     }
@@ -166,7 +164,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 String description = cursor.getString(cursor.getColumnIndex(_description));
                 String priority = cursor.getString(cursor.getColumnIndex(_priority));
                 DueDate date = new Gson().fromJson(cursor.getString(cursor.getColumnIndex(_dueDate)), DueDate.class);
-                Log.e("Db_LOGUS", "date = " + date.getDay() + " " + date.getTime());
 
                 // DueDate date = new DueDate("12","pm","awgust 1");
                 boolean isCompleted = (cursor.getInt(cursor.getColumnIndex(_isCompleted))) == 1;

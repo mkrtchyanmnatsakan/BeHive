@@ -58,7 +58,7 @@
 
 
             <TextView
-                android:id="@+id/time_text"
+                android:id="@+id/completed_time_text"
                 android:layout_marginTop="13.3dp"
                 android:layout_marginStart="8dp"
                 android:layout_below="@+id/priority_text"
@@ -73,9 +73,10 @@
 
 
             <TextView
+                android:id="@+id/completed_pm_text"
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="48.3dp"
-                android:layout_toEndOf="@+id/time_text"
+                android:layout_toEndOf="@+id/completed_time_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="10sp"
@@ -87,8 +88,9 @@
 
 
             <TextView
+                android:id="@+id/completed_day_text"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@+id/time_text"
+                android:layout_below="@+id/completed_time_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="10sp"
@@ -141,12 +143,13 @@
                 android:layout_height="match_parent">
 
                 <TextView
+                    android:id="@+id/completed_description_text"
                     android:layout_toStartOf="@+id/more_relative"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="9dp"
                     android:maxLines="3"
                     android:ellipsize="end"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
                     android:fontFamily="sans-serif"

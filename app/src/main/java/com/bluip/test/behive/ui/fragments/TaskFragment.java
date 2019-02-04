@@ -27,11 +27,11 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bluip.test.behive.R;
 import com.bluip.test.behive.db.DBHelper;
 import com.bluip.test.behive.helpers.ConstantValues;
+import com.bluip.test.behive.helpers.Utils;
 import com.bluip.test.behive.helpers.adapters.TaskAdapter;
 import com.bluip.test.behive.helpers.listeners.TaskClickedListener;
 import com.bluip.test.behive.models.Assignee;
@@ -39,9 +39,10 @@ import com.bluip.test.behive.models.DueDate;
 import com.bluip.test.behive.models.TaskModel;
 import com.bluip.test.behive.ui.activitys.BaseActivity;
 import com.bluip.test.behive.ui.activitys.HomeActivity;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -49,12 +50,12 @@ public class TaskFragment extends Fragment implements TaskClickedListener, TextV
         DBHelper.DBUpdateListener ,View.OnTouchListener{
 
 
-    RecyclerView taskRecycler;
-    EditText quickAddEditText;
-    TaskAdapter taskAdapte;
-    ImageView microphoneImage;
-
-
+    private RecyclerView taskRecycler;
+    private  EditText quickAddEditText;
+    private TaskAdapter taskAdapte;
+    private ImageView microphoneImage;
+    private ImageView notTaskImage;
+    private TextView notTaskText;
 
     private List<TaskModel> mTaskModelList;
     private Intent mSpeechRecognizerIntent;
@@ -110,7 +111,8 @@ public class TaskFragment extends Fragment implements TaskClickedListener, TextV
         microphoneImage = view.findViewById(R.id.microphone_image);
         microphoneImage.setOnTouchListener(this);
 
-
+        notTaskImage = view.findViewById(R.id.not_task_image);
+        notTaskText  = view.findViewById(R.id.not_task_text);
 
 
          mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(getActivity());
@@ -196,8 +198,21 @@ public class TaskFragment extends Fragment implements TaskClickedListener, TextV
                 @Override
                 protected void onPostExecute(Void aVoid) {
                     super.onPostExecute(aVoid);
-                    taskAdapte = new TaskAdapter(getActivity(), mTaskModelList, TaskFragment.this);
-                    taskRecycler.setAdapter(taskAdapte);
+
+                    if(mTaskModelList!= null && !mTaskModelList.isEmpty()){
+
+                        notTaskImage.setVisibility(View.GONE);
+                        notTaskText.setVisibility(View.GONE);
+
+                        taskAdapte = new TaskAdapter(getActivity(), mTaskModelList, TaskFragment.this);
+                        taskRecycler.setAdapter(taskAdapte);
+                    }else {
+
+                        notTaskImage.setVisibility(View.VISIBLE);
+                        notTaskText.setVisibility(View.VISIBLE);
+                    }
+
+
                 }
             }.execute();
 
@@ -268,9 +283,15 @@ public class TaskFragment extends Fragment implements TaskClickedListener, TextV
 
             if (taskAdapte != null) {
 
-                DueDate dueDate1 = new DueDate("15:30", "PM", "May 1");
+                Date currentTime = Calendar.getInstance().getTime();
 
-                List<Assignee> assignees = new ArrayList<>(6);
+                String time   = Utils.dateFormat(getActivity(),"hh:mm",currentTime);
+                String pmOrAm = Utils.dateFormat(getActivity(),"a",currentTime);
+                String day    = Utils.dateFormat(getActivity(),"MMM dd",currentTime);
+
+                DueDate dueDateCurrent = new DueDate(time, pmOrAm, day);
+
+                List<Assignee> assignees = new ArrayList<>();
 
                 assignees.add(new Assignee(R.drawable.user_one));
                 assignees.add(new Assignee(R.drawable.user_two));
@@ -280,7 +301,7 @@ public class TaskFragment extends Fragment implements TaskClickedListener, TextV
                 assignees.add(new Assignee(R.drawable.user_six));
 
                 TaskModel taskModel1 = new TaskModel(null, quickAddEditText.getText().toString().trim()
-                        , ConstantValues.MEDIUM, assignees, dueDate1, ConstantValues.MEDIUM, false);
+                        , ConstantValues.MEDIUM, assignees, dueDateCurrent, ConstantValues.MEDIUM, false);
                 ((BaseActivity) getActivity()).getDBHelper().saveTask(taskModel1);
 
                 taskAdapte.addNewTaskItem(taskModel1);
@@ -299,34 +320,39 @@ public class TaskFragment extends Fragment implements TaskClickedListener, TextV
 
     private void checkPermission(){
 
-        // Here, thisActivity is the current activity
-        if (ContextCompat.checkSelfPermission(getActivity(),
-                Manifest.permission.RECORD_AUDIO)
-                != PackageManager.PERMISSION_GRANTED) {
+        if(getActivity() != null){
 
-            // Permission is not granted
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                    Manifest.permission.READ_CONTACTS)) {
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
+            // Here, thisActivity is the current activity
+            if (ContextCompat.checkSelfPermission(getActivity(),
+                    Manifest.permission.RECORD_AUDIO)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                // Permission is not granted
+                // Should we show an explanation?
+                if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                        Manifest.permission.READ_CONTACTS)) {
+                    // Show an explanation to the user *asynchronously* -- don't block
+                    // this thread waiting for the user's response! After the user
+                    // sees the explanation, try again to request the permission.
+                } else {
+                    // No explanation needed; request the permission
+                    ActivityCompat.requestPermissions(getActivity(),
+                            new String[]{Manifest.permission.RECORD_AUDIO},
+                            ConstantValues.MY_PERMISSIONS_REQUEST_RECORD_AUDIO);
+
+                    // MY_PERMISSIONS_REQUEST_READ_AUDIO is an
+                    // app-defined int constant. The callback method gets the
+                    // result of the request.
+                }
             } else {
-                // No explanation needed; request the permission
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[]{Manifest.permission.RECORD_AUDIO},
-                        ConstantValues.MY_PERMISSIONS_REQUEST_RECORD_AUDIO);
 
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
+                ischeckedPermission = true;
+
             }
-        } else {
-
-            ischeckedPermission = true;
-           // Toast.makeText(getActivity(), "Permission has already been granted", Toast.LENGTH_SHORT).show();
 
         }
+
+
 
 
 
@@ -334,11 +360,12 @@ public class TaskFragment extends Fragment implements TaskClickedListener, TextV
 
     @Override
     public void onTaskUpdate(final TaskModel updatedTask) {
+
+
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
                 taskAdapte.notifyDataSetChanged();
-                Toast.makeText(getActivity(), new Gson().toJson(updatedTask), Toast.LENGTH_SHORT).show();
 
             }
         });

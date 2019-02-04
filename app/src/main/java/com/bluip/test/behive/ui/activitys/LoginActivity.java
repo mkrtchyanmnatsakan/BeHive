@@ -17,7 +17,7 @@ import com.bluip.test.behive.ui.fragments.LoginUserNameFragment;
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
 
-    Button signInButton;
+    private Button signInButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

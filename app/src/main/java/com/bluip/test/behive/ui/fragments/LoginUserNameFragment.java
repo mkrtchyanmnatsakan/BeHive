@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.TypedValue;
@@ -16,19 +15,17 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-
 import com.bluip.test.behive.R;
 import com.bluip.test.behive.helpers.ConstantValues;
 import com.bluip.test.behive.helpers.Utils;
 import com.bluip.test.behive.helpers.listeners.OnKeyboardVisibilityListener;
 
-public class LoginUserNameFragment extends Fragment implements OnKeyboardVisibilityListener ,
+public class LoginUserNameFragment extends BaseLoginFragment implements OnKeyboardVisibilityListener ,
         View.OnClickListener,TextWatcher {
 
-    RelativeLayout  goToRelative,
-                    backUserNameRelative;
-    EditText        userNameEdit;
-    TextInputLayout userNameTextInput;
+    private RelativeLayout  goToRelative;
+    private EditText        userNameEdit;
+    private TextInputLayout userNameTextInput;
 
     private int     globalHeightDiff;
 
@@ -43,13 +40,7 @@ public class LoginUserNameFragment extends Fragment implements OnKeyboardVisibil
     }
 
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-        setRetainInstance(true);
-
-    }
 
     @Nullable
     @Override
@@ -73,7 +64,7 @@ public class LoginUserNameFragment extends Fragment implements OnKeyboardVisibil
         goToRelative = view.findViewById(R.id.go_to_relative);
         goToRelative.setOnClickListener(this);
 
-        backUserNameRelative = view.findViewById(R.id.back_user_name_relative);
+        RelativeLayout backUserNameRelative = view.findViewById(R.id.back_user_name_relative);
         backUserNameRelative.setOnClickListener(this);
 
         userNameEdit = view.findViewById(R.id.user_name_edit);
@@ -114,7 +105,7 @@ public class LoginUserNameFragment extends Fragment implements OnKeyboardVisibil
                 if(isShown){
 
                     int diffGlobal = heightDiff - globalHeightDiff;
-                    setMarginGoToRelative(diffGlobal);
+                    setMarginRelative(diffGlobal);
 
 
                 }else {
@@ -133,13 +124,7 @@ public class LoginUserNameFragment extends Fragment implements OnKeyboardVisibil
         });
     }
 
-    private void setMarginGoToRelative(int diff) {
 
-        RelativeLayout.LayoutParams relativeParams = (RelativeLayout.LayoutParams)goToRelative.getLayoutParams();
-        relativeParams.setMargins(0, 0, 0, diff);
-        goToRelative.setLayoutParams(relativeParams);
-
-    }
 
 
     @Override
@@ -150,10 +135,7 @@ public class LoginUserNameFragment extends Fragment implements OnKeyboardVisibil
     }
 
 
-    private boolean validateUserName(String userName) {
 
-        return userName.length() > 0 && userName.equals(ConstantValues.USER_NAME) ;
-    }
 
     @Override
     public void onClick(View v) {
@@ -175,15 +157,14 @@ public class LoginUserNameFragment extends Fragment implements OnKeyboardVisibil
 
                 Utils.hideKeyboard(getActivity());
 
-                if(validateUserName(userNameEdit.getText().toString().trim())){
+                if(validateDate(userNameEdit.getText().toString().trim())){
 
                     goToLoginPassword();
 
 
                 } else {
-                    userNameEdit.setText("");
-                    userNameTextInput.setErrorEnabled(true);
-                    userNameTextInput.setError(getResources().getString(R.string.incorrect_username));
+
+                    setErrorTextInput();
 
 
                 }
@@ -194,6 +175,7 @@ public class LoginUserNameFragment extends Fragment implements OnKeyboardVisibil
         }
 
     }
+
 
 
     private void goToLoginPassword(){
@@ -230,4 +212,29 @@ public class LoginUserNameFragment extends Fragment implements OnKeyboardVisibil
     }
 
 
+    @Override
+    boolean validateDate(String validateDate) {
+         return validateDate.length() > 0 && validateDate.equals(ConstantValues.USER_NAME) ;
+    }
+
+    @Override
+    void setMarginRelative(int diff) {
+
+        RelativeLayout.LayoutParams relativeParams = (RelativeLayout.LayoutParams)goToRelative.getLayoutParams();
+        relativeParams.setMargins(0, 0, 0, diff);
+        goToRelative.setLayoutParams(relativeParams);
+
+    }
+
+    @Override
+    void setErrorTextInput() {
+
+        userNameEdit.setText("");
+
+        userNameTextInput.setErrorEnabled(true);
+
+        userNameTextInput.setError(getResources().getString(R.string.incorrect_username));
+
+
+    }
 }

@@ -10,7 +10,7 @@ import io.fabric.sdk.android.Fabric;
 
 public class BaseActivity extends AppCompatActivity {
 
-    DBHelper mDBHelper = null;
+    private DBHelper mDBHelper = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

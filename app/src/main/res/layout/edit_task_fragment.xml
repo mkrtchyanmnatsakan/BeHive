@@ -82,6 +82,7 @@
 
 
             <RelativeLayout
+                android:paddingBottom="5dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:background="@drawable/edit_task_bg"
@@ -91,22 +92,23 @@
 
 
                 <ImageView
+                    android:layout_marginTop="9dp"
                     android:id="@+id/clear_description_image"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="6dp"
-                    android:layout_marginTop="6dp"
+
                     android:src="@drawable/clear_outline_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
 
                 <EditText
+                    android:id="@+id/description_edit"
                     android:imeOptions="actionDone"
-                    android:singleLine="true"
+                    android:inputType="textMultiLine"
                     android:background="@null"
                     android:layout_toStartOf="@+id/clear_description_image"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_marginStart="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -219,6 +221,7 @@
 
 
             <LinearLayout
+                android:baselineAligned="false"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -274,6 +277,7 @@
             
             
             <LinearLayout
+                android:baselineAligned="false"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -323,6 +327,7 @@
                     android:layout_height="42dp">
 
                     <TextView
+                        android:id="@+id/priority_text"
                         android:layout_marginStart="15dp"
                         android:layout_centerVertical="true"
                         android:layout_width="wrap_content"

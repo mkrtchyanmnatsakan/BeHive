@@ -14,7 +14,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,10 +42,10 @@ import java.util.List;
 public class HomeActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
 
-    RelativeLayout root,
+    private  RelativeLayout root,
             menuIconRelative;
-    FrameLayout navigationContent;
-    BottomNavigationView bottomNavigation;
+    private  FrameLayout navigationContent;
+    private BottomNavigationView bottomNavigation;
 
 
     private DrawerLayout drawerLayout;
@@ -168,7 +167,7 @@ public class HomeActivity extends BaseActivity implements BottomNavigationView.O
 
 
     private void generateTasks() {
-        List<TaskModel> taskModelList = new ArrayList<>(6);
+        List<TaskModel> taskModelList = new ArrayList<>();
 
         if (getDBHelper().getTasksCount() == 0) {
 
@@ -210,10 +209,10 @@ public class HomeActivity extends BaseActivity implements BottomNavigationView.O
                         break;
 
                     case 2:
-
+                        DueDate dueDate2 = new DueDate("15:30", "PM", "May 1");
 
                         TaskModel taskModel2 = new TaskModel(i, getResources().getString(R.string.text_three)
-                                , ConstantValues.HIGH, Collections.EMPTY_LIST, new DueDate("", "", "")
+                                , ConstantValues.HIGH, Collections.EMPTY_LIST, dueDate2
                                 , ConstantValues.HIGH, false);
 
                         taskModelList.add(taskModel2);
@@ -281,7 +280,6 @@ public class HomeActivity extends BaseActivity implements BottomNavigationView.O
 
         }
 
-        Log.e("lsit size = ", "size = " + taskModelList.size());
          getDBHelper().saveTasks(taskModelList);
 
     }

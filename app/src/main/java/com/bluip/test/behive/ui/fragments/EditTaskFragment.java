@@ -7,15 +7,20 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bluip.test.behive.R;
+import com.bluip.test.behive.helpers.Utils;
 import com.bluip.test.behive.helpers.adapters.ImagePickerAdapter;
 import com.bluip.test.behive.models.DueDate;
 import com.bluip.test.behive.models.TaskModel;
@@ -25,7 +30,6 @@ import com.nguyenhoanglam.imagepicker.model.Config;
 import com.nguyenhoanglam.imagepicker.model.Image;
 import com.nguyenhoanglam.imagepicker.ui.imagepicker.ImagePicker;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -34,12 +38,15 @@ import static android.app.Activity.RESULT_OK;
 public class EditTaskFragment extends Fragment implements View.OnClickListener {
 
 
-    RelativeLayout backEditTaskRelative;
-    RelativeLayout dateRelative;
-    RelativeLayout addPhotoRelative;
-    Button saveChangeButton;
-    TextView dateTextView;
-    RecyclerView photoRecycler;
+    private  RelativeLayout backEditTaskRelative;
+    private RelativeLayout dateRelative;
+    private RelativeLayout addPhotoRelative;
+    private Button saveChangeButton;
+    private TextView dateTextView;
+    private TextView priorityText;
+    private RecyclerView photoRecycler;
+    private EditText descriptionEdit;
+    private ImageView clearDescriptionImage;
 
 
     private TaskModel taskModel;
@@ -92,6 +99,12 @@ public class EditTaskFragment extends Fragment implements View.OnClickListener {
         dateRelative.setOnClickListener(this);
         dateTextView = view.findViewById(R.id.date_text_view);
 
+        String dateTask = taskModel.getDueDate().getDay() + " " +
+                taskModel.getDueDate().getTime() + " " +
+                taskModel.getDueDate().getPm();
+
+        dateTextView.setText(dateTask);
+
         saveChangeButton = view.findViewById(R.id.save_change_button);
         saveChangeButton.setOnClickListener(this);
 
@@ -99,6 +112,28 @@ public class EditTaskFragment extends Fragment implements View.OnClickListener {
         addPhotoRelative.setOnClickListener(this);
 
         photoRecycler = view.findViewById(R.id.photo_recycler);
+
+        descriptionEdit = view.findViewById(R.id.description_edit);
+        descriptionEdit.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        descriptionEdit.setRawInputType(InputType.TYPE_CLASS_TEXT);
+
+        if(!taskModel.getDescription().isEmpty()){
+
+            descriptionEdit.setText(taskModel.getDescription());
+
+        }
+
+
+        priorityText = view.findViewById(R.id.priority_text);
+
+        if(!taskModel.getPriority().isEmpty()){
+
+            priorityText.setText(taskModel.getPriority());
+        }
+
+
+        clearDescriptionImage = view.findViewById(R.id.clear_description_image);
+        clearDescriptionImage.setOnClickListener(this);
 
 
         photoRecycler.setOnTouchListener(new View.OnTouchListener() {
@@ -134,19 +169,13 @@ public class EditTaskFragment extends Fragment implements View.OnClickListener {
                     @Override
                     public void onDateSelected(Date date) {
 
-                        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd h:mm a",
-                                getResources().getConfiguration().locale);
+                        dateTextView.setText(Utils.dateFormat(getActivity(),"MMM dd hh:mm a",date));
 
-                        SimpleDateFormat sdfPM = new SimpleDateFormat("a",
-                                getResources().getConfiguration().locale);
+                        String time = Utils.dateFormat(getActivity(),"hh:mm",date);
+                        String pmOrAm = Utils.dateFormat(getActivity(),"a",date);
+                        String day = Utils.dateFormat(getActivity(),"MMM dd",date);
 
-                        SimpleDateFormat sdfDay = new SimpleDateFormat("MMM dd", getResources().getConfiguration().locale);
-
-                        SimpleDateFormat sdfTime =  new SimpleDateFormat("h:mm", getResources().getConfiguration().locale);
-
-                        String dateString = sdf.format(date);
-                        dateTextView.setText(dateString);
-                        taskModel.setDueDate(new DueDate(sdfTime.format(date),sdfPM.format(date),sdfDay.format(date)));
+                        taskModel.setDueDate(new DueDate(time,pmOrAm,day));
 
                     }
                 })
@@ -159,6 +188,12 @@ public class EditTaskFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
 
         switch (v.getId()) {
+
+            case R.id.clear_description_image:
+
+                descriptionEdit.setText("");
+
+                break;
 
 
             case R.id.add_photo_relative:
@@ -212,14 +247,7 @@ public class EditTaskFragment extends Fragment implements View.OnClickListener {
 
             }
 
-
-
-
-
-
         }
-
-
 
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -236,7 +264,6 @@ public class EditTaskFragment extends Fragment implements View.OnClickListener {
                 .start();
 
 
-
     }
 
 
@@ -244,16 +271,15 @@ public class EditTaskFragment extends Fragment implements View.OnClickListener {
 
     private void saveChangeTask() {
 
-
             if(getActivity() != null){
+                if(!descriptionEdit.getText().toString().trim().isEmpty()){
+
+                    taskModel.setDescription(descriptionEdit.getText().toString());
+
+                }
                 ((HomeActivity) getActivity()).getDBHelper().updateTask(taskModel);
                 getActivity().onBackPressed();
             }
-
-
-
-
-
 
     }
 }

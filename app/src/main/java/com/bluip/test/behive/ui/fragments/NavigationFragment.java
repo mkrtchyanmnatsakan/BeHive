@@ -17,9 +17,9 @@ import com.bluip.test.behive.ui.activitys.HomeActivity;
 public class NavigationFragment extends Fragment implements View.OnClickListener {
 
 
-    TextView userNameText;
+    private TextView userNameText;
 
-    LinearLayout logOutLinear,
+    private LinearLayout logOutLinear,
                  activityLinear,
                  taskLinear,
                  messagesLinear,

@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
@@ -30,18 +29,18 @@ import com.bluip.test.behive.helpers.Utils;
 import com.bluip.test.behive.helpers.listeners.OnKeyboardVisibilityListener;
 import com.bluip.test.behive.ui.activitys.HomeActivity;
 
-public class LoginPasswordFragment extends Fragment implements View.OnTouchListener,View
+public class LoginPasswordFragment extends BaseLoginFragment implements View.OnTouchListener,View
                                                     .OnClickListener , OnKeyboardVisibilityListener
                                                     ,TextWatcher,  CompoundButton.OnCheckedChangeListener {
 
 
-    RelativeLayout goToHomeRelative,
+    private RelativeLayout goToHomeRelative,
                    backPasswordRelative;
 
-    EditText passwordEdit;
-    TextInputLayout passwordTextInput;
-    TextView forgotText;
-    CheckBox checkBoxPassword;
+    private EditText passwordEdit;
+    private TextInputLayout passwordTextInput;
+    private TextView forgotText;
+    private CheckBox checkBoxPassword;
     private boolean isClickedEye;
     private int     globalHeightDiff;
 
@@ -57,13 +56,6 @@ public class LoginPasswordFragment extends Fragment implements View.OnTouchListe
 
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        setRetainInstance(true);
-
-    }
 
 
     @Nullable
@@ -150,7 +142,7 @@ public class LoginPasswordFragment extends Fragment implements View.OnTouchListe
                 if(isShown){
 
                     int diffGlobal = heightDiff - globalHeightDiff;
-                    setMarginGoToRelative(diffGlobal);
+                    setMarginRelative(diffGlobal);
 
 
                 }else {
@@ -169,13 +161,7 @@ public class LoginPasswordFragment extends Fragment implements View.OnTouchListe
         });
     }
 
-    private void setMarginGoToRelative(int diff) {
 
-        RelativeLayout.LayoutParams relativeParams = (RelativeLayout.LayoutParams)goToHomeRelative.getLayoutParams();
-        relativeParams.setMargins(0, 0, 0, diff);
-        goToHomeRelative.setLayoutParams(relativeParams);
-
-    }
 
 
 
@@ -229,10 +215,7 @@ public class LoginPasswordFragment extends Fragment implements View.OnTouchListe
     }
 
 
-    private boolean validatePassword(String password) {
 
-        return password.length() > 0 && password.equals(ConstantValues.PASSWORD) ;
-    }
 
 
     @Override
@@ -256,7 +239,7 @@ public class LoginPasswordFragment extends Fragment implements View.OnTouchListe
 
                 Utils.hideKeyboard(getActivity());
 
-                if(validatePassword(passwordEdit.getText().toString().trim())){
+                if(validateDate(passwordEdit.getText().toString().trim())){
 
                     if(getActivity() != null ){
 
@@ -287,14 +270,7 @@ public class LoginPasswordFragment extends Fragment implements View.OnTouchListe
     }
 
 
-    private void setErrorTextInput(){
 
-        passwordEdit.setText("");
-        passwordTextInput.setErrorEnabled(true);
-        passwordTextInput.setError(getResources().getString(R.string.incorrect_password));
-
-
-    }
 
     @Override
     public void onVisibilityChanged(boolean visible) {
@@ -325,7 +301,7 @@ public class LoginPasswordFragment extends Fragment implements View.OnTouchListe
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
 
-        if(validatePassword(passwordEdit.getText().toString())){
+        if(validateDate(passwordEdit.getText().toString())){
 
             if(isChecked){
 
@@ -347,6 +323,31 @@ public class LoginPasswordFragment extends Fragment implements View.OnTouchListe
 
         }
 
+
+    }
+
+    @Override
+    boolean validateDate(String validateDate) {
+        return validateDate.length() > 0 && validateDate.equals(ConstantValues.PASSWORD);
+    }
+
+    @Override
+    void setMarginRelative(int diff) {
+
+        RelativeLayout.LayoutParams relativeParams = (RelativeLayout.LayoutParams)goToHomeRelative.getLayoutParams();
+        relativeParams.setMargins(0, 0, 0, diff);
+        goToHomeRelative.setLayoutParams(relativeParams);
+
+    }
+
+    @Override
+    void setErrorTextInput() {
+
+                passwordEdit.setText("");
+
+                passwordTextInput.setErrorEnabled(true);
+
+                passwordTextInput.setError(getResources().getString(R.string.incorrect_password));
 
     }
 }

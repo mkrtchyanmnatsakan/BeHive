@@ -93,6 +93,7 @@
 
 
         <TextView
+            android:id="@+id/not_task_text"
             android:layout_marginTop="16dp"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/not_task_image"
