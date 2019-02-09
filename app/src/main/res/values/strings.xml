@@ -7,7 +7,7 @@
     <string name="version">Version</string>
     <string name="enter_your_username">ENTER YOUR USERNAME</string>
     <string name="username">Username</string>
-    <string name="incorrect_username">Incorrect usernamee</string>
+    <string name="incorrect_username">Incorrect username</string>
     <string name="incorrect_password">Incorrect password</string>
     <string name="enter_your_password">ENTER YOUR PASSWORD</string>
     <string name="password">Password</string>
@@ -53,5 +53,10 @@
     <string name="edit_task">Edit Task</string>
     <string name="not_date">--</string>
     <string name="sign_out">Sign Out</string>
+
+    <string name="menu_high">HIGH</string>
+    <string name="menu_medium">MEDIUM</string>
+    <string name="menu_low">LOW</string>
+    <string name="attach_image">Attach image</string>
 
 </resources>

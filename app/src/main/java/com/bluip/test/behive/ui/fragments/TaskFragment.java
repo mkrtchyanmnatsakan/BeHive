@@ -27,6 +27,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bluip.test.behive.R;
 import com.bluip.test.behive.db.DBHelper;
@@ -53,7 +54,6 @@ public class TaskFragment extends Fragment implements TaskClickedListener, TextV
     private RecyclerView taskRecycler;
     private  EditText quickAddEditText;
     private TaskAdapter taskAdapte;
-    private ImageView microphoneImage;
     private ImageView notTaskImage;
     private TextView notTaskText;
 
@@ -108,7 +108,7 @@ public class TaskFragment extends Fragment implements TaskClickedListener, TextV
         quickAddEditText.setOnEditorActionListener(this);
         quickAddEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
-        microphoneImage = view.findViewById(R.id.microphone_image);
+        ImageView microphoneImage = view.findViewById(R.id.microphone_image);
         microphoneImage.setOnTouchListener(this);
 
         notTaskImage = view.findViewById(R.id.not_task_image);
@@ -190,8 +190,6 @@ public class TaskFragment extends Fragment implements TaskClickedListener, TextV
                 protected Void doInBackground(Void... voids) {
                     mTaskModelList = ((HomeActivity) getActivity()).getDBHelper().getAllTasks();
 
-
-
                     return null;
                 }
 
@@ -203,7 +201,6 @@ public class TaskFragment extends Fragment implements TaskClickedListener, TextV
 
                         notTaskImage.setVisibility(View.GONE);
                         notTaskText.setVisibility(View.GONE);
-
                         taskAdapte = new TaskAdapter(getActivity(), mTaskModelList, TaskFragment.this);
                         taskRecycler.setAdapter(taskAdapte);
                     }else {
@@ -250,17 +247,8 @@ public class TaskFragment extends Fragment implements TaskClickedListener, TextV
         switch (requestCode) {
             case ConstantValues.MY_PERMISSIONS_REQUEST_RECORD_AUDIO: {
                 // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    ischeckedPermission = true;
-
-
-                } else {
-
-                    ischeckedPermission = false;
-
-                }
+                ischeckedPermission = grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED;
                 return;
             }
 
@@ -331,6 +319,7 @@ public class TaskFragment extends Fragment implements TaskClickedListener, TextV
                 // Should we show an explanation?
                 if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
                         Manifest.permission.READ_CONTACTS)) {
+                    Toast.makeText(getActivity(), "try again to request the permission", Toast.LENGTH_SHORT).show();
                     // Show an explanation to the user *asynchronously* -- don't block
                     // this thread waiting for the user's response! After the user
                     // sees the explanation, try again to request the permission.

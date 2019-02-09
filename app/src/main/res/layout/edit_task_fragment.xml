@@ -274,15 +274,15 @@
 
 
             </LinearLayout>
-            
-            
+
+
             <LinearLayout
                 android:baselineAligned="false"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                
-                
+
+
                 <RelativeLayout
                     android:id="@+id/date_relative"
                     android:layout_marginEnd="4dp"
@@ -319,6 +319,7 @@
 
 
                 <RelativeLayout
+                    android:id="@+id/priority_relative"
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/edit_task_bg"
@@ -354,8 +355,8 @@
 
 
 
-                
-                
+
+
             </LinearLayout>
 
 
@@ -371,12 +372,47 @@
                     android:layout_toStartOf="@+id/add_photo_relative"
                     android:id="@+id/photo_recycler"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"/>
 
-                    
-                </android.support.v7.widget.RecyclerView>
-                
-                
+
+
+                <RelativeLayout
+                    android:id="@+id/not_photo_relative"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <ImageView
+
+                        android:id="@+id/add_photo_image"
+                        android:src="@drawable/ic_add_photo"
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+                    <TextView
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/add_photo_image"
+                        android:text="@string/attach_image"
+                        android:textSize="16sp"
+                        android:fontFamily="sans-serif"
+                        android:textStyle="normal"
+                        android:textColor="@color/colorCharcoalGrey"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+
+
+
+                </RelativeLayout>
+
+
+
+
+
+
                 <RelativeLayout
                     android:id="@+id/add_photo_relative"
                     android:layout_alignParentEnd="true"

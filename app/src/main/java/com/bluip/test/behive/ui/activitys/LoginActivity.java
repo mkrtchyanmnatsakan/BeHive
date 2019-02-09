@@ -17,8 +17,6 @@ import com.bluip.test.behive.ui.fragments.LoginUserNameFragment;
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
 
-    private Button signInButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +41,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         String versionName = getResources().getString(R.string.version) + " " + Utils.getVersionAppName(this);
         versionNameText.setText(versionName);
 
-        signInButton = findViewById(R.id.sign_in_button);
+        Button signInButton = findViewById(R.id.sign_in_button);
         signInButton.setOnClickListener(this);
 
 

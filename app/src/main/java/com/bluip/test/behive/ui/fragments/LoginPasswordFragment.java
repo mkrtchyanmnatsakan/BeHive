@@ -34,12 +34,10 @@ public class LoginPasswordFragment extends BaseLoginFragment implements View.OnT
                                                     ,TextWatcher,  CompoundButton.OnCheckedChangeListener {
 
 
-    private RelativeLayout goToHomeRelative,
-                   backPasswordRelative;
+    private RelativeLayout goToHomeRelative;
 
     private EditText passwordEdit;
     private TextInputLayout passwordTextInput;
-    private TextView forgotText;
     private CheckBox checkBoxPassword;
     private boolean isClickedEye;
     private int     globalHeightDiff;
@@ -88,10 +86,8 @@ public class LoginPasswordFragment extends BaseLoginFragment implements View.OnT
             passwordEdit.setText(savePassword);
         }
 
-        forgotText        = view.findViewById(R.id.forgot_text);
+        TextView forgotText = view.findViewById(R.id.forgot_text);
         forgotText.setPaintFlags(forgotText.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-
-        //Todo hsoin harcnel es pah@
 
             passwordEdit.setOnTouchListener(this);
             passwordEdit.addTextChangedListener(this);
@@ -99,7 +95,7 @@ public class LoginPasswordFragment extends BaseLoginFragment implements View.OnT
         goToHomeRelative = view.findViewById(R.id.go_to_home_relative);
         goToHomeRelative.setOnClickListener(this);
 
-        backPasswordRelative = view.findViewById(R.id.back_password_relative);
+        RelativeLayout backPasswordRelative = view.findViewById(R.id.back_password_relative);
         backPasswordRelative.setOnClickListener(this);
 
         checkBoxPassword = view.findViewById(R.id.check_box_password);
@@ -251,13 +247,9 @@ public class LoginPasswordFragment extends BaseLoginFragment implements View.OnT
                     }
 
 
-
                 }else {
 
-
                     setErrorTextInput();
-
-
 
                 }
 
@@ -344,9 +336,7 @@ public class LoginPasswordFragment extends BaseLoginFragment implements View.OnT
     void setErrorTextInput() {
 
                 passwordEdit.setText("");
-
                 passwordTextInput.setErrorEnabled(true);
-
                 passwordTextInput.setError(getResources().getString(R.string.incorrect_password));
 
     }

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import com.bluip.test.behive.R;
+import com.bluip.test.behive.helpers.listeners.ImagePickerSizeListener;
 import com.bumptech.glide.Glide;
 import com.nguyenhoanglam.imagepicker.model.Image;
 import java.util.ArrayList;
@@ -20,12 +21,14 @@ public class ImagePickerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private Activity homeActivity;
     private LayoutInflater inflater;
     private   ArrayList<Image> images;
+    private ImagePickerSizeListener imagePickerSizeListener;
 
 
-    public ImagePickerAdapter(Activity activity, ArrayList<Image> images) {
+    public ImagePickerAdapter(Activity activity, ArrayList<Image> images,ImagePickerSizeListener imagePickerSizeListener) {
 
-        homeActivity = activity;
+        this.homeActivity = activity;
         this.images = images;
+        this.imagePickerSizeListener = imagePickerSizeListener;
         this.inflater = LayoutInflater.from(activity);
 
     }
@@ -70,8 +73,13 @@ public class ImagePickerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
+
+        imagePickerSizeListener.imagePickerSize(images);
+
         if (images == null || images.isEmpty()) {
+
             return 0;
+
         } else {
 
             return images.size();

@@ -42,12 +42,9 @@ import java.util.List;
 public class HomeActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
 
-    private  RelativeLayout root,
-            menuIconRelative;
+    private  RelativeLayout root;
     private  FrameLayout navigationContent;
     private BottomNavigationView bottomNavigation;
-
-
     private DrawerLayout drawerLayout;
 
 
@@ -57,13 +54,6 @@ public class HomeActivity extends BaseActivity implements BottomNavigationView.O
 
         changeStatusBarColor();
         setContentView(R.layout.activity_home);
-
-//        if (savedInstanceState == null) {
-//            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-//                     TaskFragment.newInstance())
-//                    .commit();
-//        }
-
 
         initViews();
     }
@@ -89,7 +79,7 @@ public class HomeActivity extends BaseActivity implements BottomNavigationView.O
 
         drawerLayout = findViewById(R.id.drawer_layout);
 
-        menuIconRelative = findViewById(R.id.menu_icon_relative);
+        RelativeLayout menuIconRelative = findViewById(R.id.menu_icon_relative);
         menuIconRelative.setOnClickListener(this);
 
         bottomNavigation = findViewById(R.id.bottom_navigation);
@@ -113,9 +103,6 @@ public class HomeActivity extends BaseActivity implements BottomNavigationView.O
                 controllerDrawerLayout();
             }
         },300);
-
-
-
 
         switch (clickedType){
 
@@ -160,8 +147,6 @@ public class HomeActivity extends BaseActivity implements BottomNavigationView.O
 
         Utils.settingBooleanValuesInPreference(this,ConstantValues.IS_LOGIN_USER_PREFERENCE_KEY,false);
         finish();
-
-
 
     }
 
@@ -379,6 +364,19 @@ public class HomeActivity extends BaseActivity implements BottomNavigationView.O
     }
 
 
+
+    public void setDrawerLockModeUnlocked(){
+
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
+    }
+
+    public void setDrawerLockModeLockedOpen(){
+
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNDEFINED);
+
+    }
+
     private void controllerDrawerLayout(){
 
         if (drawerLayout.isDrawerOpen(navigationContent)) {
@@ -447,9 +445,7 @@ public class HomeActivity extends BaseActivity implements BottomNavigationView.O
             }
         }
 
-        public void runWhenIdle(Runnable runnable) {
-            this.runnable = runnable;
-        }
+
 
     }
 

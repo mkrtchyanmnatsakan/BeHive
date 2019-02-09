@@ -17,18 +17,6 @@ import com.bluip.test.behive.ui.activitys.HomeActivity;
 public class NavigationFragment extends Fragment implements View.OnClickListener {
 
 
-    private TextView userNameText;
-
-    private LinearLayout logOutLinear,
-                 activityLinear,
-                 taskLinear,
-                 messagesLinear,
-                 workspacesLinear,
-                 contractLinear;
-
-
-
-
     public static NavigationFragment newInstance(){
 
         NavigationFragment navigationFragment = new NavigationFragment();
@@ -65,25 +53,25 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
     private void initViews(View view) {
 
-        userNameText = view.findViewById(R.id.user_name_text);
+        TextView userNameText = view.findViewById(R.id.user_name_text);
         userNameText.setText(ConstantValues.USER_NAME);
 
-        logOutLinear = view.findViewById(R.id.log_out_linear);
+        LinearLayout logOutLinear = view.findViewById(R.id.log_out_linear);
         logOutLinear.setOnClickListener(this);
 
-        activityLinear = view.findViewById(R.id.activity_linear);
+        LinearLayout activityLinear = view.findViewById(R.id.activity_linear);
         activityLinear.setOnClickListener(this);
 
-        taskLinear = view.findViewById(R.id.task_linear);
+        LinearLayout taskLinear = view.findViewById(R.id.task_linear);
         taskLinear.setOnClickListener(this);
 
-        messagesLinear = view.findViewById(R.id.messages_linear);
+        LinearLayout messagesLinear = view.findViewById(R.id.messages_linear);
         messagesLinear.setOnClickListener(this);
 
-        workspacesLinear = view.findViewById(R.id.workspaces_linear);
+        LinearLayout workspacesLinear = view.findViewById(R.id.workspaces_linear);
         workspacesLinear.setOnClickListener(this);
 
-        contractLinear = view.findViewById(R.id.contract_linear);
+        LinearLayout contractLinear = view.findViewById(R.id.contract_linear);
         contractLinear.setOnClickListener(this);
 
 

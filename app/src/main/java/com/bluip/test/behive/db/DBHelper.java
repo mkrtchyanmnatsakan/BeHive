@@ -126,7 +126,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    public synchronized boolean existData(int id) {
+    private synchronized boolean existData(int id) {
         boolean dataExit = false;
         Cursor cursor = null;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -140,6 +140,7 @@ public class DBHelper extends SQLiteOpenHelper {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            if(cursor!= null)
             cursor.close();
         }
 

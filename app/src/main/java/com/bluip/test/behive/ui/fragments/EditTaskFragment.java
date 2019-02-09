@@ -6,9 +6,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,7 @@ import android.widget.TextView;
 import com.bluip.test.behive.R;
 import com.bluip.test.behive.helpers.Utils;
 import com.bluip.test.behive.helpers.adapters.ImagePickerAdapter;
+import com.bluip.test.behive.helpers.listeners.ImagePickerSizeListener;
 import com.bluip.test.behive.models.DueDate;
 import com.bluip.test.behive.models.TaskModel;
 import com.bluip.test.behive.ui.activitys.HomeActivity;
@@ -32,32 +35,29 @@ import com.nguyenhoanglam.imagepicker.ui.imagepicker.ImagePicker;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
-public class EditTaskFragment extends Fragment implements View.OnClickListener {
+public class EditTaskFragment extends Fragment implements View.OnClickListener,PopupMenu.
+        OnMenuItemClickListener,ImagePickerSizeListener {
 
 
-    private  RelativeLayout backEditTaskRelative;
-    private RelativeLayout dateRelative;
-    private RelativeLayout addPhotoRelative;
-    private Button saveChangeButton;
     private TextView dateTextView;
-    private TextView priorityText;
     private RecyclerView photoRecycler;
     private EditText descriptionEdit;
-    private ImageView clearDescriptionImage;
-
+    private RelativeLayout priorityRelative;
+    private RelativeLayout notPhotoRelative;
+    private TextView priorityText;
+    private ImagePickerAdapter imagePickerAdapter;
 
     private TaskModel taskModel;
-
     private ArrayList<Image> images;
-    private ImagePickerAdapter imagePickerAdapter;
+
 
     public static EditTaskFragment newInstance(TaskModel taskModels) {
 
         EditTaskFragment editTaskFragment = new EditTaskFragment();
-
         editTaskFragment.images = new ArrayList<>();
         editTaskFragment.taskModel = taskModels;
         Bundle bundle = new Bundle();
@@ -92,10 +92,22 @@ public class EditTaskFragment extends Fragment implements View.OnClickListener {
 
     private void initView(View view) {
 
-        backEditTaskRelative = view.findViewById(R.id.back_edit_task_relative);
+        if(getActivity() instanceof HomeActivity){
+
+            ((HomeActivity) getActivity()).setDrawerLockModeUnlocked();
+
+        }
+
+        notPhotoRelative = view.findViewById(R.id.not_photo_relative);
+        notPhotoRelative.setOnClickListener(this);
+
+        priorityRelative = view.findViewById(R.id.priority_relative);
+        priorityRelative.setOnClickListener(this);
+
+        RelativeLayout backEditTaskRelative = view.findViewById(R.id.back_edit_task_relative);
         backEditTaskRelative.setOnClickListener(this);
 
-        dateRelative = view.findViewById(R.id.date_relative);
+        RelativeLayout dateRelative = view.findViewById(R.id.date_relative);
         dateRelative.setOnClickListener(this);
         dateTextView = view.findViewById(R.id.date_text_view);
 
@@ -105,10 +117,10 @@ public class EditTaskFragment extends Fragment implements View.OnClickListener {
 
         dateTextView.setText(dateTask);
 
-        saveChangeButton = view.findViewById(R.id.save_change_button);
+        Button saveChangeButton = view.findViewById(R.id.save_change_button);
         saveChangeButton.setOnClickListener(this);
 
-        addPhotoRelative = view.findViewById(R.id.add_photo_relative);
+        RelativeLayout addPhotoRelative = view.findViewById(R.id.add_photo_relative);
         addPhotoRelative.setOnClickListener(this);
 
         photoRecycler = view.findViewById(R.id.photo_recycler);
@@ -132,7 +144,7 @@ public class EditTaskFragment extends Fragment implements View.OnClickListener {
         }
 
 
-        clearDescriptionImage = view.findViewById(R.id.clear_description_image);
+        ImageView clearDescriptionImage = view.findViewById(R.id.clear_description_image);
         clearDescriptionImage.setOnClickListener(this);
 
 
@@ -189,6 +201,18 @@ public class EditTaskFragment extends Fragment implements View.OnClickListener {
 
         switch (v.getId()) {
 
+            case R.id.not_photo_relative:
+
+                startImagePicker();
+
+                break;
+
+            case R.id.priority_relative:
+
+                showPriorityPopUpMenu(priorityRelative);
+
+                break;
+
             case R.id.clear_description_image:
 
                 descriptionEdit.setText("");
@@ -226,6 +250,19 @@ public class EditTaskFragment extends Fragment implements View.OnClickListener {
 
     }
 
+    private void showPriorityPopUpMenu(View view) {
+
+        if(getActivity()!= null){
+
+            PopupMenu popupMenu = new PopupMenu(getActivity(),view);
+            popupMenu.setOnMenuItemClickListener(this);
+            popupMenu.inflate(R.menu.priority_menu);
+            popupMenu.show();
+
+        }
+
+    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -235,7 +272,7 @@ public class EditTaskFragment extends Fragment implements View.OnClickListener {
             images = data.getParcelableArrayListExtra(Config.EXTRA_IMAGES);
 
             if(imagePickerAdapter == null){
-                imagePickerAdapter = new ImagePickerAdapter(getActivity(),images);
+                imagePickerAdapter = new ImagePickerAdapter(getActivity(),images,this);
 
                 photoRecycler.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,true));
                 photoRecycler.setAdapter(imagePickerAdapter);
@@ -271,15 +308,83 @@ public class EditTaskFragment extends Fragment implements View.OnClickListener {
 
     private void saveChangeTask() {
 
-            if(getActivity() != null){
-                if(!descriptionEdit.getText().toString().trim().isEmpty()){
+        if(getActivity() != null){
+            if(!descriptionEdit.getText().toString().trim().isEmpty()){
 
-                    taskModel.setDescription(descriptionEdit.getText().toString());
+                taskModel.setDescription(descriptionEdit.getText().toString());
 
-                }
-                ((HomeActivity) getActivity()).getDBHelper().updateTask(taskModel);
-                getActivity().onBackPressed();
             }
+            ((HomeActivity) getActivity()).getDBHelper().updateTask(taskModel);
+            getActivity().onBackPressed();
+        }
 
+    }
+
+
+    private void setPriorityTask(String priorityTask){
+
+        taskModel.setPriority(priorityTask);
+        priorityText.setText(priorityTask);
+
+
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {
+
+        switch (menuItem.getItemId()){
+
+            case R.id.high_item:
+
+                setPriorityTask(menuItem.getTitle().toString());
+
+                return true;
+
+            case R.id.medium_item:
+
+                setPriorityTask(menuItem.getTitle().toString());
+
+                return true;
+
+            case R.id.low_item:
+
+                setPriorityTask(menuItem.getTitle().toString());
+
+                return true;
+
+            default:
+
+                return false;
+
+        }
+
+
+    }
+
+    @Override
+    public void imagePickerSize(List<Image> imageList) {
+
+        if(imageList != null && !imageList.isEmpty()){
+
+            notPhotoRelative.setVisibility(View.GONE);
+
+        }else {
+
+            notPhotoRelative.setVisibility(View.VISIBLE);
+        }
+
+    }
+
+
+    @Override
+    public void onDestroyView() {
+
+        if(getActivity() instanceof HomeActivity){
+
+            ((HomeActivity) getActivity()).setDrawerLockModeLockedOpen();
+
+        }
+
+        super.onDestroyView();
     }
 }

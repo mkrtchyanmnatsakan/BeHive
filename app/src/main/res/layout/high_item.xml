@@ -152,7 +152,6 @@
                 android:fontFamily="sans-serif"
                 android:textStyle="normal"
                 android:textColor="@color/colorSteel"
-                android:lineSpacingExtra="4sp"
                 android:text="@string/text_three"
                 />
 
