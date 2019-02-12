@@ -231,6 +231,7 @@ public class TaskFragment extends Fragment implements TaskClickedListener, TextV
 
         if (getActivity() instanceof HomeActivity) {
 
+            Utils.hideKeyboard(getActivity());
             ((HomeActivity) getActivity()).goToEditFragment(taskModel);
 
 
@@ -269,7 +270,7 @@ public class TaskFragment extends Fragment implements TaskClickedListener, TextV
 
         if (actionId == EditorInfo.IME_ACTION_DONE) {
 
-            if (taskAdapte != null) {
+            if (taskAdapte != null && !quickAddEditText.getText().toString().trim().isEmpty()) {
 
                 Date currentTime = Calendar.getInstance().getTime();
 

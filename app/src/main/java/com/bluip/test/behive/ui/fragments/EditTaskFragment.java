@@ -380,7 +380,7 @@ public class EditTaskFragment extends Fragment implements View.OnClickListener,P
     public void onDestroyView() {
 
         if(getActivity() instanceof HomeActivity){
-
+            Utils.hideKeyboard(getActivity());
             ((HomeActivity) getActivity()).setDrawerLockModeLockedOpen();
 
         }
