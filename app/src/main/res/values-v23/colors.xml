@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#6a3dff</color>
+    <color name="colorAccent">#80a1fd</color>
+    <color name="colorStatusBarStart">#88c4fc</color>
+    <color name="colorCharcoalGrey">#3f4244</color>
+    <color name="colorSteel">#848a91</color>
+    <color name="colorSilver">#caced1</color>
+    <color name="colorWatermelon">#f05659</color>
+    <color name="colorStatusBar">#26000000</color>
+    <color name="colorHomeBg">#f2f2f2</color>
+    <color name="colorCoolGrey">#b4bac2</color>
+    <color name="colorPeriwinkleBlue">#80a1fd</color>
+    <color name="colorLowBg">#ecf4ff</color>
+    <color name="colorMediumBg">#fff4ee</color>
+    <color name="colorCompleted">#91979d</color>
+    <color name="colorTransparent">#00000000</color>
+    <color name="colorDescriptionEdit">#6b7076</color>
+
+
+</resources>

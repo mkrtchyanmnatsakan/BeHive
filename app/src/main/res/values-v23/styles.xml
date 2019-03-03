@@ -9,4 +9,19 @@
     </style>
 
 
+
+
+    <style name="AppTheme.NoActionBarStart">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/start_gradient</item>
+    </style>
+
+    <style name="error_appearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/colorWatermelon</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColorHighlight">@color/colorSilver</item>
+        <item name="android:textColorLink">@color/colorWatermelon</item>
+    </style>
+
 </resources>

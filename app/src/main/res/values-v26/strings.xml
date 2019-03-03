@@ -8,7 +8,7 @@
     <string name="version">Version</string>
     <string name="enter_your_username">ENTER YOUR USERNAME</string>
     <string name="username">Username</string>
-    <string name="incorrect_username">Incorrect usernamee</string>
+    <string name="incorrect_username">Incorrect username</string>
     <string name="incorrect_password">Incorrect password</string>
     <string name="enter_your_password">ENTER YOUR PASSWORD</string>
     <string name="password">Password</string>
@@ -40,6 +40,7 @@
     <string name="count_message">10</string>
     <string name="completed">Completed</string>
     <string name="text_four">Suspendisse luctus tempus mi, sagittis eleifend est vestibulum eget.</string>
+    <string name="text_five">Curabitur at pulvinar neque, quis pharetra augue. Sed porttitor nisi nibh, eu ...</string>
     <string name="description">Description</string>
     <string name="text_desc">Contrary to popular belief, Lorem is not simply random text.</string>
     <string name="workspace_edit">Workspace3, Workspace 5</string>
@@ -49,4 +50,13 @@
     <string name="priority">Priority</string>
     <string name="time_edit_task">Aug 15 14:56 PM</string>
     <string name="save_changes">Save Changes</string>
+    <string name="type_your_task_description">Type your task description*</string>
+    <string name="edit_task">Edit Task</string>
+    <string name="not_date">--</string>
+    <string name="sign_out">Sign Out</string>
+
+    <string name="menu_high">HIGH</string>
+    <string name="menu_medium">MEDIUM</string>
+    <string name="menu_low">LOW</string>
+    <string name="attach_image">Attach image</string>
 </resources>
